@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="#F6FFF2"/>
+  <rect x="36" y="36" width="440" height="440" rx="72" fill="#2F6F3E"/>
+  <path d="M138 294C138 214.471 202.471 150 282 150H319C319 229.529 254.529 294 175 294H138Z" fill="#A3C26D"/>
+  <path d="M196 358C196 278.471 260.471 214 340 214H374C374 293.529 309.529 358 230 358H196Z" fill="#DCEB9E"/>
+  <circle cx="186" cy="182" r="28" fill="#F6FFF2"/>
+  <text x="68" y="420" fill="#F6FFF2" font-family="Arial, sans-serif" font-size="42" font-weight="700">Coratella Marco</text>
+</svg>

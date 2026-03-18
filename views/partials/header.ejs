@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> • <%= settings.companyName %></title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="/logo.svg" alt="Logo" class="brand-logo" />
+        <div>
+          <div class="brand-title"><%= settings.companyName %></div>
+          <div class="brand-subtitle">Gestionale clienti e ordini</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-link <%= currentPath === '/' ? 'active' : '' %>" href="/">Dashboard</a>
+        <a class="nav-link <%= currentPath.startsWith('/clients') ? 'active' : '' %>" href="/clients">Clienti</a>
+        <a class="nav-link <%= currentPath.startsWith('/orders') ? 'active' : '' %>" href="/orders">Ordini</a>
+        <a class="nav-link <%= currentPath === '/agenda' ? 'active' : '' %>" href="/agenda">Agenda</a>
+        <a class="nav-link <%= currentPath === '/settings' ? 'active' : '' %>" href="/settings">Impostazioni</a>
+      </nav>
+
+      <div class="sidebar-box">
+        <div class="sidebar-label">Contatti rapidi</div>
+        <div><strong>Telefono:</strong> <%= settings.phone %></div>
+        <div><strong>WhatsApp:</strong> <%= settings.whatsapp %></div>
+        <div><strong>Sede:</strong> <%= settings.address %></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1><%= title %></h1>
+          <p class="muted"><%= subtitle %></p>
+        </div>
+        <div class="topbar-actions">
+          <a href="/backup/export" class="btn btn-secondary">Esporta backup</a>
+          <button onclick="window.print()" class="btn btn-secondary">Stampa</button>
+        </div>
+      </header>

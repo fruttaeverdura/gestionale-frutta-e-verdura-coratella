@@ -1,0 +1,53 @@
+<%- include('partials/header', { title: 'Scheda cliente', subtitle: 'Dettaglio completo cliente con modifica e storico ordini' }) %>
+
+<section class="grid-two">
+  <form class="card" method="post" action="/clients/<%= client.id %>/update">
+    <div class="card-header"><h2>Dati cliente</h2></div>
+    <div class="form-grid">
+      <input name="name" value="<%= client.name %>" required />
+      <input name="phone" value="<%= client.phone %>" />
+      <input name="city" value="<%= client.city %>" />
+      <input name="address" value="<%= client.address %>" />
+      <textarea name="notes"><%= client.notes %></textarea>
+    </div>
+    <div class="inline-actions">
+      <button class="btn">Aggiorna cliente</button>
+    </div>
+  </form>
+
+  <div class="card">
+    <div class="card-header"><h2>Riepilogo</h2></div>
+    <div class="summary-block"><span>Totale speso</span><strong>€ <%= client.totalSpent.toFixed(2) %></strong></div>
+    <div class="summary-block"><span>Numero ordini</span><strong><%= client.orders.length %></strong></div>
+    <div class="summary-block"><span>Ultimo ordine</span><strong><%= client.lastOrderDate || '-' %></strong></div>
+    <form method="post" action="/clients/<%= client.id %>/delete" onsubmit="return confirm('Eliminare cliente e ordini collegati?')">
+      <button class="btn btn-danger">Elimina cliente</button>
+    </form>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-header"><h2>Storico ordini</h2></div>
+  <% if (!client.orders.length) { %>
+    <p class="muted">Nessun ordine registrato.</p>
+  <% } %>
+  <% client.orders.forEach(order => { %>
+    <div class="order-box">
+      <div class="list-row">
+        <div>
+          <strong><%= order.date %></strong>
+          <div class="muted"><%= order.status %></div>
+        </div>
+        <div class="right">€ <%= order.total.toFixed(2) %></div>
+      </div>
+      <ul class="items-list">
+        <% order.items.forEach(item => { %>
+          <li><%= item.name %> — <%= item.qty %> <%= item.unit %> × € <%= Number(item.price).toFixed(2) %></li>
+        <% }) %>
+      </ul>
+      <% if (order.notes) { %><p class="muted"><%= order.notes %></p><% } %>
+    </div>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

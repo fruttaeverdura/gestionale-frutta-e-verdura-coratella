@@ -1,0 +1,96 @@
+<%- include('partials/header', { title: 'Ordini', subtitle: 'Gestione completa degli ordini: inserimento, stato e cancellazione' }) %>
+
+<section class="grid-two">
+  <form class="card" method="post" action="/orders">
+    <div class="card-header"><h2>Nuovo ordine</h2></div>
+    <div class="form-grid">
+      <select name="clientId" required>
+        <option value="">Seleziona cliente</option>
+        <% clients.forEach(client => { %>
+          <option value="<%= client.id %>"><%= client.name %> — <%= client.city || 'Senza città' %></option>
+        <% }) %>
+      </select>
+      <input type="date" name="date" />
+      <select name="status">
+        <option>Da preparare</option>
+        <option>In consegna</option>
+        <option>Consegnato</option>
+        <option>Annullato</option>
+      </select>
+      <input name="notes" placeholder="Note ordine" />
+    </div>
+
+    <div id="items-wrap">
+      <div class="item-row">
+        <input name="itemName" placeholder="Prodotto" />
+        <input name="itemQty" type="number" min="0" step="0.01" placeholder="Q.tà" />
+        <input name="itemUnit" value="kg" placeholder="Unità" />
+        <input name="itemPrice" type="number" min="0" step="0.01" placeholder="Prezzo" />
+      </div>
+      <div class="item-row">
+        <input name="itemName" placeholder="Prodotto" />
+        <input name="itemQty" type="number" min="0" step="0.01" placeholder="Q.tà" />
+        <input name="itemUnit" value="kg" placeholder="Unità" />
+        <input name="itemPrice" type="number" min="0" step="0.01" placeholder="Prezzo" />
+      </div>
+    </div>
+
+    <div class="inline-actions">
+      <button type="button" onclick="addItemRow()" class="btn btn-secondary">Aggiungi riga prodotto</button>
+      <button class="btn">Salva ordine</button>
+    </div>
+  </form>
+
+  <div class="card">
+    <div class="card-header"><h2>Filtro stato</h2></div>
+    <form method="get" action="/orders" class="search-bar">
+      <select name="status">
+        <option value="">Tutti gli stati</option>
+        <option <%= status === 'Da preparare' ? 'selected' : '' %>>Da preparare</option>
+        <option <%= status === 'In consegna' ? 'selected' : '' %>>In consegna</option>
+        <option <%= status === 'Consegnato' ? 'selected' : '' %>>Consegnato</option>
+        <option <%= status === 'Annullato' ? 'selected' : '' %>>Annullato</option>
+      </select>
+      <button class="btn btn-secondary">Filtra</button>
+    </form>
+    <p class="muted">Ordini visibili: <strong><%= orders.length %></strong></p>
+  </div>
+</section>
+
+<section class="card">
+  <% orders.forEach(order => { %>
+    <div class="order-box">
+      <div class="list-row">
+        <div>
+          <strong><%= order.client?.name || 'Cliente mancante' %></strong>
+          <div class="muted"><%= order.date %> • <%= order.client?.city || 'Senza città' %></div>
+        </div>
+        <div class="right">
+          <strong>€ <%= order.total.toFixed(2) %></strong>
+        </div>
+      </div>
+      <ul class="items-list">
+        <% order.items.forEach(item => { %>
+          <li><%= item.name %> — <%= item.qty %> <%= item.unit %> × € <%= Number(item.price).toFixed(2) %></li>
+        <% }) %>
+      </ul>
+      <% if (order.notes) { %><p class="muted"><%= order.notes %></p><% } %>
+      <div class="inline-actions">
+        <form method="post" action="/orders/<%= order.id %>/status">
+          <select name="status">
+            <option <%= order.status === 'Da preparare' ? 'selected' : '' %>>Da preparare</option>
+            <option <%= order.status === 'In consegna' ? 'selected' : '' %>>In consegna</option>
+            <option <%= order.status === 'Consegnato' ? 'selected' : '' %>>Consegnato</option>
+            <option <%= order.status === 'Annullato' ? 'selected' : '' %>>Annullato</option>
+          </select>
+          <button class="btn btn-small">Aggiorna stato</button>
+        </form>
+        <form method="post" action="/orders/<%= order.id %>/delete" onsubmit="return confirm('Eliminare ordine?')">
+          <button class="btn btn-small btn-danger">Elimina</button>
+        </form>
+      </div>
+    </div>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

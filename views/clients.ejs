@@ -1,0 +1,55 @@
+<%- include('partials/header', { title: 'Clienti', subtitle: 'Anagrafica completa con storico spesa e note operative' }) %>
+
+<section class="grid-two">
+  <form class="card" method="post" action="/clients">
+    <div class="card-header"><h2>Nuovo cliente</h2></div>
+    <div class="form-grid">
+      <input name="name" placeholder="Nome cliente / attività" required />
+      <input name="phone" placeholder="Telefono" />
+      <input name="city" placeholder="Città" />
+      <input name="address" placeholder="Indirizzo" />
+      <textarea name="notes" placeholder="Note, preferenze, giorni consegna"></textarea>
+    </div>
+    <button class="btn">Salva cliente</button>
+  </form>
+
+  <div class="card">
+    <div class="card-header"><h2>Cerca cliente</h2></div>
+    <form class="search-bar" method="get" action="/clients">
+      <input name="q" value="<%= q %>" placeholder="Nome, città, telefono, note" />
+      <button class="btn btn-secondary">Cerca</button>
+    </form>
+    <p class="muted">Totale clienti trovati: <strong><%= clients.length %></strong></p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Città</th>
+          <th>Telefono</th>
+          <th>Ultimo ordine</th>
+          <th>Totale speso</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% clients.forEach(client => { %>
+          <tr>
+            <td><strong><%= client.name %></strong></td>
+            <td><%= client.city || '-' %></td>
+            <td><%= client.phone || '-' %></td>
+            <td><%= client.lastOrderDate || '-' %></td>
+            <td>€ <%= client.totalSpent.toFixed(2) %></td>
+            <td><a class="btn btn-small" href="/clients/<%= client.id %>">Apri scheda</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

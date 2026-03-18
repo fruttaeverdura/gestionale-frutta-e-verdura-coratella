@@ -1,0 +1,14 @@
+{
+  "name": "coratella-gestionale",
+  "version": "1.0.0",
+  "description": "Gestionale clienti e ordini per Frutta e Verdura di Coratella",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "method-override": "^3.0.0"
+  }
+}

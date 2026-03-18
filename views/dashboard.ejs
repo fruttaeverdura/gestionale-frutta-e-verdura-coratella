@@ -1,0 +1,59 @@
+<%- include('partials/header', { title: 'Dashboard', subtitle: 'Panoramica generale del lavoro giornaliero' }) %>
+
+<section class="stats-grid">
+  <div class="stat-card"><span>Clienti</span><strong><%= dashboard.clients %></strong></div>
+  <div class="stat-card"><span>Ordini aperti</span><strong><%= dashboard.openOrders %></strong></div>
+  <div class="stat-card"><span>Consegnati</span><strong><%= dashboard.deliveredOrders %></strong></div>
+  <div class="stat-card"><span>Incasso consegnato</span><strong>€ <%= dashboard.totalRevenue.toFixed(2) %></strong></div>
+</section>
+
+<section class="grid-two">
+  <div class="card">
+    <div class="card-header"><h2>Ordini da seguire</h2><a href="/orders" class="link">Vai agli ordini</a></div>
+    <% if (!upcoming.length) { %>
+      <p class="muted">Nessun ordine aperto.</p>
+    <% } %>
+    <% upcoming.forEach(order => { %>
+      <div class="list-row">
+        <div>
+          <strong><%= order.client?.name || 'Cliente non trovato' %></strong>
+          <div class="muted"><%= order.date %> • <%= order.status %></div>
+        </div>
+        <div class="right">€ <%= order.total.toFixed(2) %></div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h2>Clienti recenti</h2><a href="/clients" class="link">Apri anagrafica</a></div>
+    <% clients.slice(0, 6).forEach(client => { %>
+      <div class="list-row">
+        <div>
+          <strong><a class="plain-link" href="/clients/<%= client.id %>"><%= client.name %></a></strong>
+          <div class="muted"><%= client.city || 'Città non inserita' %> • <%= client.phone || 'Telefono non inserito' %></div>
+        </div>
+        <div class="right">€ <%= client.totalSpent.toFixed(2) %></div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-header"><h2>Promemoria operativo</h2></div>
+  <div class="notice-grid">
+    <div class="notice-box">
+      <strong>Oggi</strong>
+      <p>Controlla gli ordini con data <%= today %> e aggiorna lo stato dopo la consegna.</p>
+    </div>
+    <div class="notice-box">
+      <strong>Clienti zona Andria e paesi vicini</strong>
+      <p>Usa la scheda cliente per ricordare preferenze, giornate di consegna e prodotti ricorrenti.</p>
+    </div>
+    <div class="notice-box">
+      <strong>Backup</strong>
+      <p>Esporta il backup in JSON da questa schermata prima di modifiche importanti.</p>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,30 @@
+<%- include('partials/header', { title: 'Impostazioni', subtitle: 'Dati aziendali, logo testuale e backup/importazione' }) %>
+
+<section class="grid-two">
+  <form class="card" method="post" action="/settings">
+    <div class="card-header"><h2>Dati attività</h2></div>
+    <div class="form-grid">
+      <input name="companyName" value="<%= config.companyName %>" placeholder="Ragione / nome attività" />
+      <input name="internalName" value="<%= config.internalName %>" placeholder="Nome operativo interno" />
+      <input name="phone" value="<%= config.phone %>" placeholder="Telefono" />
+      <input name="whatsapp" value="<%= config.whatsapp %>" placeholder="WhatsApp" />
+      <input name="email" value="<%= config.email %>" placeholder="Email" />
+      <input name="address" value="<%= config.address %>" placeholder="Indirizzo" />
+      <input name="logoText" value="<%= config.logoText %>" placeholder="Testo logo" />
+    </div>
+    <button class="btn">Salva impostazioni</button>
+  </form>
+
+  <div class="card">
+    <div class="card-header"><h2>Importa backup</h2></div>
+    <form method="post" action="/backup/import">
+      <textarea name="payload" rows="16" placeholder="Incolla qui il contenuto del file JSON di backup"></textarea>
+      <button class="btn btn-secondary">Importa JSON</button>
+    </form>
+    <div class="separator"></div>
+    <p class="muted">Per il logo grafico definitivo sostituisci il file <strong>public/logo.svg</strong> con il logo ufficiale.</p>
+    <p class="muted">I campi telefono e WhatsApp sono pronti: inserisci i numeri reali qui dentro senza toccare altro.</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

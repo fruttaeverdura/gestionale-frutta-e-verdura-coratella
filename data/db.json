@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "companyName": "Frutta e Verdura di Coratella Marco",
+    "internalName": "Raffaele Coratella",
+    "phone": "INSERIRE-NUMERO",
+    "whatsapp": "INSERIRE-NUMERO-WHATSAPP",
+    "email": "INSERIRE-EMAIL",
+    "address": "Andria (BT)",
+    "logoText": "Coratella Marco"
+  },
+  "clients": [
+    {
+      "id": 1,
+      "name": "Ristorante Da Nicola",
+      "phone": "3400000001",
+      "city": "Andria",
+      "address": "Via Esempio 12",
+      "notes": "Consegna mattina. Preferisce prodotto fresco giornaliero.",
+      "createdAt": "2026-03-18T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Bar Centrale",
+      "phone": "3400000002",
+      "city": "Barletta",
+      "address": "Piazza Esempio 5",
+      "notes": "Ordine ricorrente per frutta da spremuta.",
+      "createdAt": "2026-03-18T10:00:00.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "date": "2026-03-18",
+      "status": "Da preparare",
+      "items": [
+        { "name": "Pomodori", "qty": 10, "unit": "kg", "price": 2.2 },
+        { "name": "Insalata", "qty": 8, "unit": "kg", "price": 1.8 },
+        { "name": "Patate", "qty": 20, "unit": "kg", "price": 1.1 }
+      ],
+      "notes": "Consegnare entro le 11:00"
+    },
+    {
+      "id": 2,
+      "clientId": 2,
+      "date": "2026-03-18",
+      "status": "Consegnato",
+      "items": [
+        { "name": "Arance", "qty": 15, "unit": "kg", "price": 1.4 },
+        { "name": "Limoni", "qty": 6, "unit": "kg", "price": 1.9 }
+      ],
+      "notes": "Pagato alla consegna"
+    }
+  ],
+  "counters": {
+    "clients": 3,
+    "orders": 3
+  }
+}

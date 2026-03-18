@@ -1,0 +1,24 @@
+<%- include('partials/header', { title: 'Agenda', subtitle: 'Vista per data per organizzare preparazione e consegne' }) %>
+
+<section class="card">
+  <% const dates = Object.keys(grouped); %>
+  <% if (!dates.length) { %>
+    <p class="muted">Nessun ordine presente.</p>
+  <% } %>
+  <% dates.forEach(date => { %>
+    <div class="agenda-day">
+      <h2><%= date %></h2>
+      <% grouped[date].forEach(order => { %>
+        <div class="list-row agenda-row">
+          <div>
+            <strong><%= order.client?.name || 'Cliente mancante' %></strong>
+            <div class="muted"><%= order.status %> • <%= order.client?.city || '-' %></div>
+          </div>
+          <div class="right">€ <%= order.total.toFixed(2) %></div>
+        </div>
+      <% }) %>
+    </div>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>
